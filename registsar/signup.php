@@ -1,27 +1,24 @@
 <?php
     $errors = [];
 
+    // emptyは空かどうかを調べる
+    // isssetは変数が存在するかどうかチェック
+
     // 空のものがあるとポスト送信しない
     if(!empty($_POST)){
         $name = $_POST['input_name'];
         $email = $_POST['input_email'];
         $password = $_POST['input_password'];
 
-        // ユーザー名の空チェック
-        // ifemptyを使うと０もblankとして処理されてしまう
-        if($name == ''){
-            $errors['name'] = 'blank';
-        }
-        if($email == ''){
-            $errors['email'] = 'blank';
-        }
-        $count = strlen($password);
-        if($password == ''){
-            $errors['password'] = 'blank';
-        } elseif ($count < 4 || 16 < $count) {
-            $errors['password'] = 'length';
-        }
-    }
+        // ユーザー名の空チェック         // ifemptyを使うと０もblankとして処理されてしまう
+if($name == ''){             $errors['name'] = 'blank';         }
+if($email == ''){             $errors['email'] = 'blank';         }
+$count = strlen($password);         if($password == ''){
+$errors['password'] = 'blank';         } elseif ($count < 4 || 16 < $count) {
+$errors['password'] = 'length';         }     $file_name =
+$_FILES['input_img_name']['name'];         if(!empty($file_name)){
+} else{                 $errors['img_name'] = 'blank';             }
+}
 
 ?>
 <!DOCTYPE html>
@@ -61,13 +58,19 @@
             <input type="password" name="input_password" class="form-control" id="password" placeholder="4 ~ 16文字のパスワード">
             <?php if (isset($errors['password']) && $errors['password'] == 'blank'): ?>
                 <p class="text-danger">パスワードを入力してください。</p>
-                
+            <?php endif; ?>
+            <?php if (isset($errors['password']) && $errors['password'] == 'length') :?>
+                <p class="text-danger">パスワードは４文字以上１６字以内で入力して下さい。</p>
             <?php endif; ?>
 
           </div>
           <div class="form-group">
             <label for="img_name">プロフィール画像</label>
-            <input type="file" name="input_img_name" id="img_name">
+            <input type="file" name="input_img_name" accept = "image/*" id="img_name">
+            <?php if(isset($errors['img_name']) && $errors['img_name'] == 'blank')
+            : ?>
+            <p class="text-danger">画像を選択してください。</p>
+            <?php endif; ?>
           </div>
           <input type="submit" class="btn btn-default" value="確認">
           <a href="../signin.php" style="float: right; padding-top: 6px;" class="text-success">サインイン</a>
