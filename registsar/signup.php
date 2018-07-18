@@ -10,15 +10,34 @@
         $email = $_POST['input_email'];
         $password = $_POST['input_password'];
 
-        // ユーザー名の空チェック         // ifemptyを使うと０もblankとして処理されてしまう
-if($name == ''){             $errors['name'] = 'blank';         }
-if($email == ''){             $errors['email'] = 'blank';         }
-$count = strlen($password);         if($password == ''){
-$errors['password'] = 'blank';         } elseif ($count < 4 || 16 < $count) {
-$errors['password'] = 'length';         }     $file_name =
-$_FILES['input_img_name']['name'];         if(!empty($file_name)){
-} else{                 $errors['img_name'] = 'blank';             }
-}
+        // ユーザー名の空チェック
+        // ifemptyを使うと０もbkankとして処理されてしまう
+        if($name ==''){
+            $errors['name'] = 'blank';
+        }
+
+        if($email == ''){
+            $errors['email'] = 'blank';
+        }
+
+
+        $count = strlen($password);
+        if($password == ''){
+            $errors['password'] = 'blank';
+        } elseif ($count < 4 || 16 < $count){
+            $errors['password'] = 'length';
+        }
+
+        $file_name = $_FILES['input_img_name']['name'];
+        if(!empty($file_name)){ } else{$errors['img_name'] = 'blank';
+         } } 
+        if(!empty($file_name)){ $file_type =substr($file_name, -3);
+        $file_type = strtolower($file_type);
+        if($file_type != 'jpg' && $file_type != 'png' && $file_type != 'gif'){
+        $errors['img_nmae'] = 'type';}else {
+        $errors['img_name'] = 'blank'; } 
+    }
+
 
 ?>
 <!DOCTYPE html>
@@ -70,6 +89,9 @@ $_FILES['input_img_name']['name'];         if(!empty($file_name)){
             <?php if(isset($errors['img_name']) && $errors['img_name'] == 'blank')
             : ?>
             <p class="text-danger">画像を選択してください。</p>
+            <?php endif; ?>
+            <?php if(isset($errors['img_name']) && $errors['img_name'] == 'type'): ?>
+            <p class="text-danger">拡張子が「jpg」「png」「gif」の画像を選択して下さい。</p>
             <?php endif; ?>
           </div>
           <input type="submit" class="btn btn-default" value="確認">
