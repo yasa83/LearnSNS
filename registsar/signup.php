@@ -1,6 +1,10 @@
 <?php
-    $errors = [];
 
+    date_default_timezone_set('Asia/Manila');
+
+
+    $errors = [];
+    
     // emptyは空かどうかを調べる
     // isssetは変数が存在するかどうかチェック
 
@@ -34,8 +38,22 @@
         if(!empty($file_name)){ $file_type =substr($file_name, -3);
         $file_type = strtolower($file_type);
         if($file_type != 'jpg' && $file_type != 'png' && $file_type != 'gif'){
-        $errors['img_nmae'] = 'type';}else {
-        $errors['img_name'] = 'blank'; } 
+            $errors['img_nmae'] = 'type';
+        }else {
+            $errors['img_name'] = 'blank';
+        }
+
+                // もしエラーがなかったら以下の処理を行う
+        if (empty($errors)){
+            $date_str = date('YmdHis');
+            $submit_file_name = $date_str.$file_name;
+            move_uploaded_file($FILES['imput_image_name']['tmp_name']. '../user_profile_img/'.$submit_file_name);
+        }
+
+
+        
+
+
     }
 
 
