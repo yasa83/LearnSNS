@@ -12,6 +12,12 @@ $email = $_SESSION['register']['email'];
 $password = $_SESSION['register']['password'];
 $img_name = $_SESSION['register']['img_name'];
 
+// 登録ボタンが押された時のみ処理するif文
+if(!empty($_POST)){
+    // この中のデータベース登録処理を記述します
+    echo '通過テスト'.'<br>';
+}
+
 ?>
 
 <!DOCTYPE html>
