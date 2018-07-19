@@ -1,9 +1,18 @@
 <?php
+    session_start();
 
     date_default_timezone_set('Asia/Manila');
 
-
     $errors = [];
+
+// check.phpから戻って来たときの処理
+    if(isset($_GET['action']) && $_GET['action'] == 'rewrite'){
+        $_POST['input_name'] = $_SESSION['register']['name'];
+        $_POST['input_email'] = $_SESSION['register']['email'];
+        $_POST['input_password'] = $_SESSION['register']['password'];
+
+        $errors['rewrite'] =true;
+    }
     
     // emptyは空かどうかを調べる
     // isssetは変数が存在するかどうかチェック
@@ -32,13 +41,20 @@
             $errors['password'] = 'length';
         }
 
-        $file_name = $_FILES['input_img_name']['name'];
-        if(!empty($file_name)){ } else{$errors['img_name'] = 'blank';
-         } } 
-        if(!empty($file_name)){ $file_type =substr($file_name, -3);
-        $file_type = strtolower($file_type);
-        if($file_type != 'jpg' && $file_type != 'png' && $file_type != 'gif'){
-            $errors['img_nmae'] = 'type';
+        // 画像名を取得
+        $file_name = '';
+        if(!isset($_GET['action'])){
+            $file_name = $_FILES['input_img_name']['name'];
+        }
+
+        if(!empty($file_name)){ 
+            // 拡張子のチェック
+            $file_type =substr($file_name, -3);
+            $file_type = strtolower($file_type);
+
+             if($file_type != 'jpg' && $file_type != 'png' && $file_type != 'gif'){
+                $errors['img_name'] = 'type';
+            }
         }else {
             $errors['img_name'] = 'blank';
         }
@@ -47,8 +63,18 @@
         if (empty($errors)){
             $date_str = date('YmdHis');
             $submit_file_name = $date_str.$file_name;
-            move_uploaded_file($FILES['imput_image_name']['tmp_name']. '../user_profile_img/'.$submit_file_name);
+            move_uploaded_file($_FILES['input_img_name']['tmp_name'],'../user_profile_img/'.$submit_file_name);
+        
+
+        $_SESSION['register']['name'] = $_POST['input_name'];
+        $_SESSION['register']['email'] = $_POST['input_email'];
+        $_SESSION['register']['password'] = $_POST['input_password'];
+        $_SESSION['register']['img_name'] = $submit_file_name;
+
+        header('Location: check.php');
+        exit();
         }
+
 
 
         
