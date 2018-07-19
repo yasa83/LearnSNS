@@ -2,7 +2,9 @@
     session_start();
 
     date_default_timezone_set('Asia/Manila');
-
+    
+    $name = '';
+    $email = '';
     $errors = [];
 
 // check.phpから戻って来たときの処理
