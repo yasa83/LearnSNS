@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+// データベースに接続
+require_once('../dbconnect.php');
+
 // 直接このページに来たらsignup.phpに飛ぶようにする
 if(!isset($_SESSION['register'])){
     header('Location:signup.php');
