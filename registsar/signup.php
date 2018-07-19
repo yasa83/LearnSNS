@@ -127,6 +127,9 @@
             <?php if (isset($errors['password']) && $errors['password'] == 'length') :?>
                 <p class="text-danger">パスワードは４文字以上１６字以内で入力して下さい。</p>
             <?php endif; ?>
+            <?php if (!empty($errors)): ?>
+                <p class="text-danger">パスワードを再度入力して下さい。</p>
+            <?php endif; ?>
 
           </div>
           <div class="form-group">
