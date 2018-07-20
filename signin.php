@@ -1,5 +1,19 @@
 <?php
-// サインイン処理
+// 初期化
+    $errors = [];
+
+    if(!empty($_POST)){
+        $email = $_POST['input_email'];
+        $password = $_POST['input_password'];
+
+        if($email!=''&& $password!=''){
+            //データベースとの照合処理
+        }else{
+            $errors['signin'] ='blank';
+        }
+
+        echo "てすと";
+    }
 ?>
 <!DOCTYPE html>
 <html lang="ja">
