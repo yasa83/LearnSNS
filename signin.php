@@ -17,8 +17,16 @@
             $record = $stmt->fetch(PDO::FETCH_ASSOC);
 
             // メールアドレスでの本人確認
+            // DBのemailと$recordが一致しなかったらfalseになる
             if($record == false){
                 $errors['signin'] = 'failed';
+            }
+            // passwordが正しくないとエラーがでる
+            if(password_verify($password,$record['password'])){
+                // 認証成功
+            }else{
+                // 認証失敗
+                $errors['signin'] ='failed';
             }
         }else{
             $errors['signin'] ='blank';
@@ -45,6 +53,9 @@
                     <?php if(isset($errors['signin'])&&$errors['signin']=='blank'): ?>
                         <p class="text-danger">メールアドレスとパスワードを正しく入力してください。</p>
                         <?php endif; ?>
+                        <?php if(isset($errors['signin'])&&$errors['signin']=='failed'): ?>
+                        <p class="text-danger">サインインに失敗しました</p>
+                    <?php endif;?>
                     <div class="form-group">
                         
                         <label for="email">メールアドレス</label>
