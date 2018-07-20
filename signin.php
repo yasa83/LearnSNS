@@ -25,6 +25,7 @@
 
             
             // passwordが正しくないとエラーがでる
+            // $passwordの配列のなかの記録と一致するか
             if(password_verify($password,$record['password'])){
                 // 認証成功
                 // SESSION変数にIDを保存
