@@ -12,7 +12,7 @@
             $errors['signin'] ='blank';
         }
 
-        echo "てすと";
+        
     }
 ?>
 <!DOCTYPE html>
@@ -31,8 +31,12 @@
                 <h2 class="text-center content_header">サインイン</h2>
                 <form method="POST" action="" enctype="multipart/form-data">
                     <div class="form-group">
+                        <?php if(isset($errors['signin'])&&$errors['signin']=='blank'): ?>
+                        <p class="text-danger">メールアドレスとパスワードを正しく入力してください。</p>
+                        <?php endif; ?>
                         <label for="email">メールアドレス</label>
                         <input type="email" name="input_email" class="form-control" id="email" placeholder="example@gmail.com">
+
                     </div>
                     <div class="form-group">
                         <label for="password">パスワード</label>
