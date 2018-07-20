@@ -73,6 +73,8 @@
         $_SESSION['register']['password'] = $_POST['input_password'];
         $_SESSION['register']['img_name'] = $submit_file_name;
 
+        
+
         header('Location: check.php');
         exit();
         }
@@ -105,7 +107,7 @@
         <form method="POST" action="signup.php" enctype="multipart/form-data">
           <div class="form-group">
             <label for="name">ユーザー名</label>
-            <input type="text" name="input_name" class="form-control" id="name" placeholder="山田 太郎" value="<?php echo htmlspecialchars($name);?>"
+            <input type="text" name="input_name" class="form-control" id="name" placeholder="山田 太郎" value="<?php echo htmlspecialchars($name);?>">
             <?php if (isset($errors['name']) && $errors['name'] == 'blank'): ?>
                 <p class="text-danger">ユーザー名を入力してください。</p>
             <?php endif; ?>
