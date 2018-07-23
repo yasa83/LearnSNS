@@ -47,7 +47,7 @@ $signin_user = $stmt->fetch(PDO::FETCH_ASSOC);
                 </form>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="https://placehold.jp/18x18.png" width="18" class="img-circle">ユーザー名 <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="user_profile_img/<?php echo $signin_user['img_name']; ?>" width="18" class="img-circle"><?php echo $signin_user['name']; ?> <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">マイページ</a></li>
                             <li><a href="signout.php">サインアウト</a></li>
