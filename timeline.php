@@ -23,13 +23,22 @@ $feed = $_POST['feed'];
 
 
 // 投稿の空チェック
-// ifemptyを使うと０もbkankとして処理されてしまう
+// ifemptyを使うと０もblankとして処理されてしまう
 if ($feed != '') {
             // 投稿処理
+    $sql = 'INSERT INTO `feeds` SET `feed`=?, `user_id`=?, `created`=NOW()';
+    $data = array($feed, $signin_user['id']);
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
 
-        } else {
-            $errors['feed'] = 'blank';
-        }
+
+    unset($_SESSION['register']);
+    header("Location:timeline.php");
+    exit();
+
+    } else {
+     $errors['feed'] = 'blank';
+    }
 
 }
 
