@@ -1,9 +1,9 @@
 <?php
 // timeline.phpの処理を記載
-
 session_start();
 require('dbconnect.php');
 
+$id =[];
 $sql = 'SELECT * FROM `users` WHERE `id`=?';
 $data = array($_SESSION['id']);
 $stmt = $dbh->prepare($sql);
@@ -11,6 +11,19 @@ $stmt->execute($data);
 
 $signin_user = $stmt->fetch(PDO::FETCH_ASSOC);
 
+
+$feed = '';
+    // 空のものがあるとポスト送信しない
+    if(!empty($_POST)){
+        $feed = $_POST['feed'];
+
+
+        // ユーザー名の空チェック
+        // ifemptyを使うと０もbkankとして処理されてしまう
+        if($feed ==''){
+            $errors['feed'] = 'blank';
+        }
+    }
 
 ?>
 <!DOCTYPE html>
@@ -72,6 +85,9 @@ $signin_user = $stmt->fetch(PDO::FETCH_ASSOC);
                     <form method="POST" action="">
                         <div class="form-group">
                             <textarea name="feed" class="form-control" rows="3" placeholder="Happy Hacking!" style="font-size: 24px;"></textarea><br>
+                            <?php if (isset($errors['feed']) && $errors['feed'] == 'blank'): ?>
+                            <p class="text-danger">コメントを入力してください。</p>
+                            <?php endif; ?>
                         </div>
                         <input type="submit" value="投稿する" class="btn btn-primary">
                     </form>
