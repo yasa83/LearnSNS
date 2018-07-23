@@ -3,6 +3,7 @@
 session_start();
 require('dbconnect.php');
 
+//  SQLから配列を受け取る
 $id =[];
 $sql = 'SELECT * FROM `users` WHERE `id`=?';
 $data = array($_SESSION['id']);
@@ -12,18 +13,25 @@ $stmt->execute($data);
 $signin_user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
-$feed = '';
-    // 空のものがあるとポスト送信しない
-    if(!empty($_POST)){
-        $feed = $_POST['feed'];
+
+// 初期化
+$errors = array();
+
+// ユーザーが投稿ボタンを押したら発動
+if(!empty($_POST)){
+$feed = $_POST['feed'];
 
 
-        // ユーザー名の空チェック
-        // ifemptyを使うと０もbkankとして処理されてしまう
-        if($feed ==''){
+// 投稿の空チェック
+// ifemptyを使うと０もbkankとして処理されてしまう
+if ($feed != '') {
+            // 投稿処理
+
+        } else {
             $errors['feed'] = 'blank';
         }
-    }
+
+}
 
 ?>
 <!DOCTYPE html>
