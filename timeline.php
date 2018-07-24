@@ -3,6 +3,13 @@
 session_start();
 require('dbconnect.php');
 
+// 直接このページに来たらsignup.phpに飛ぶようにする
+// これを入れないと直接このページに来たらSESSONの値が無いのでUndifind indexになる
+if(!isset($_SESSION['id'])){
+    header('Location:signin.php');
+    exit();
+}
+
 //  SQLから配列を受け取る
 $id =[];
 $sql = 'SELECT * FROM `users` WHERE `id`=?';
