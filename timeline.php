@@ -38,7 +38,7 @@ if ($feed != '') {
     $stmt = $dbh->prepare($sql);
     $stmt->execute($data);
 
-
+// これが無いと画面更新したときに何度もデータを送ってしまう
     unset($_SESSION['register']);
     header("Location:timeline.php");
     exit();
