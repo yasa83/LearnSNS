@@ -46,8 +46,28 @@ if ($feed != '') {
     } else {
      $errors['feed'] = 'blank';
     }
-
 }
+
+// 結合したデータを取り出す
+    $sql = 'SELECT `feeds`.*, `users`.`name`,`users`.`img_name` FROM `feeds` LEFT JOIN `users` ON `feeds`.`user_id` = `users`.`id` WHERE 1 ORDER BY `created` DESC';
+    $data[] = array();
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
+    // 表示用も配列を初期化
+    $feeds=array();
+
+    while(true){
+        $record = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($record == false){
+            break;
+        }
+        $feed[] =$record;
+    }
+    
+
+    $dbh = null;
+
 
 ?>
 <!DOCTYPE html>
