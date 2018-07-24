@@ -49,7 +49,7 @@ if ($feed != '') {
 }
 
 // 結合したデータを取り出す
-    $sql = 'SELECT `feeds`.*, `users`.`name`,`users`.`img_name` FROM `feeds` LEFT JOIN `users` ON `feeds`.`user_id` = `users`.`id` WHERE 1 ORDER BY `created` DESC';
+    $sql = 'SELECT `f`.*, `u`.`name`,`u`.`img_name` FROM `feeds` AS `f` LEFT JOIN `users` AS `u` ON `f`.`user_id` = `u`.`id` WHERE 1 ORDER BY `created` DESC';
     $data[] = array();
     $stmt = $dbh->prepare($sql);
     $stmt->execute($data);
