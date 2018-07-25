@@ -1,6 +1,6 @@
 <?php
 // timeline.phpの処理を記載
-
+// テスト
 session_start();
 require('dbconnect.php');
 
