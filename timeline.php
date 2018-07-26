@@ -57,6 +57,12 @@ $page = min($page,$last_page);
 $start = ($page -1)*CONTENT_PER_PAGE;
 
 
+
+
+
+
+
+
 // ユーザーが投稿ボタンを押したら発動
 if(!empty($_POST)){
 $feed = $_POST['feed'];
@@ -86,7 +92,7 @@ if ($feed != '') {
 
 // 結合したデータを取り出す
 // 表示件数を5件に絞る
-// OFFSETの後半角スペースを開ける
+// LIMITやOFFSETの後半角スペースを開ける
     $sql = 'SELECT `f`.*, `u`.`name`,`u`.`img_name` FROM `feeds` AS `f` LEFT JOIN `users` AS `u` ON `f`.`user_id` = `u`.`id` ORDER BY `created` DESC LIMIT '.CONTENT_PER_PAGE.' OFFSET '.$start;
     $data = array();
     $stmt = $dbh->prepare($sql);
@@ -210,8 +216,17 @@ if ($feed != '') {
             <?php endforeach; ?>
                 <div aria-label="Page navigation">
                     <ul class="pager">
-                        <li class="previous disabled"><a href="timeline.php?page=<?php echo $page -1; ?>"><span aria-hidden="true">&larr;</span> Newer</a></li>
-                        <li class="next"><a href="timeline.php?page=<?php echo $page +1; ?>">Older <span aria-hidden="true">&rarr;</span></a></li>
+                        <?php if($page == 1): ?>
+                        <li class="previous disabled"><a><span aria-hidden="true">&larr;</span>Newer</a></li>
+                        <?php else: ?>
+                            <li class="previous"><a href="timeline.php?page=<?=$page -1;?>"><span aria-hidden="true">&larr;</span>Newer</a></li>
+                        <?php endif; ?>
+
+                        <?php if($page == $last_page): ?>
+                            <li class="next disabled"><a>Older<span aria-hidden="true">&rarr;</span></a></li>
+                            <?php else: ?>
+                                <li class="next"><a href="timeline.php?page=<?=$page+1; ?>">Older<span aria-hidden="true">&rarr;</span></a></li>
+                            <?php endif; ?>
                     </ul>
                 </div>
             </div>
