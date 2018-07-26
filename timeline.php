@@ -181,8 +181,8 @@ if ($feed != '') {
             <?php endforeach; ?>
                 <div aria-label="Page navigation">
                     <ul class="pager">
-                        <li class="previous disabled"><a href="timeline.php?php=<?php echo $page-1; ?>"><span aria-hidden="true">&larr;</span> Newer</a></li>
-                        <li class="next"><a href="timeline.php?php=<?php echo $page+1; ?>">Older <span aria-hidden="true">&rarr;</span></a></li>
+                        <li class="previous disabled"><a href="timeline.php?page=<?php echo $page -1; ?>"><span aria-hidden="true">&larr;</span> Newer</a></li>
+                        <li class="next"><a href="timeline.php?page=<?php echo $page +1; ?>">Older <span aria-hidden="true">&rarr;</span></a></li>
                     </ul>
                 </div>
             </div>
