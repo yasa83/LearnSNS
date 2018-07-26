@@ -49,7 +49,8 @@ if ($feed != '') {
 }
 
 // 結合したデータを取り出す
-    $sql = 'SELECT `f`.*, `u`.`name`,`u`.`img_name` FROM `feeds` AS `f` LEFT JOIN `users` AS `u` ON `f`.`user_id` = `u`.`id` ORDER BY `created` DESC';
+// 表示件数を5件に絞る
+    $sql = 'SELECT `f`.*, `u`.`name`,`u`.`img_name` FROM `feeds` AS `f` LEFT JOIN `users` AS `u` ON `f`.`user_id` = `u`.`id` ORDER BY `created` DESC LIMIT 5';
     $data = array();
     $stmt = $dbh->prepare($sql);
     $stmt->execute($data);
