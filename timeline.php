@@ -24,6 +24,14 @@ $signin_user = $stmt->fetch(PDO::FETCH_ASSOC);
 // 初期化
 $errors = array();
 
+
+// 何ページ目を開いているか取得する
+if(isset($_GET['page'])){
+    $page = $_GET['page'];
+}else{
+    $page =1;
+}
+
 // ユーザーが投稿ボタンを押したら発動
 if(!empty($_POST)){
 $feed = $_POST['feed'];
@@ -50,7 +58,7 @@ if ($feed != '') {
 
 // 結合したデータを取り出す
 // 表示件数を5件に絞る
-    $sql = 'SELECT `f`.*, `u`.`name`,`u`.`img_name` FROM `feeds` AS `f` LEFT JOIN `users` AS `u` ON `f`.`user_id` = `u`.`id` ORDER BY `created` DESC LIMIT 5';
+    $sql = 'SELECT `f`.*, `u`.`name`,`u`.`img_name` FROM `feeds` AS `f` LEFT JOIN `users` AS `u` ON `f`.`user_id` = `u`.`id` ORDER BY `created` DESC LIMIT 5 OFFSET 0';
     $data = array();
     $stmt = $dbh->prepare($sql);
     $stmt->execute($data);
@@ -173,8 +181,8 @@ if ($feed != '') {
             <?php endforeach; ?>
                 <div aria-label="Page navigation">
                     <ul class="pager">
-                        <li class="previous disabled"><a href="#"><span aria-hidden="true">&larr;</span> Newer</a></li>
-                        <li class="next"><a href="#">Older <span aria-hidden="true">&rarr;</span></a></li>
+                        <li class="previous disabled"><a href="timeline.php?php=<?php echo $page-1; ?>"><span aria-hidden="true">&larr;</span> Newer</a></li>
+                        <li class="next"><a href="timeline.php?php=<?php echo $page+1; ?>">Older <span aria-hidden="true">&rarr;</span></a></li>
                     </ul>
                 </div>
             </div>
