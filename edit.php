@@ -38,18 +38,20 @@ if(!empty($_POST)){
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 <body style="margin-top: 60px;">
-    <div class="container">
-        <div class="row">
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="row">
             <!-- ここにコンテンツ -->
-            <div class="col-xs-4 col-xs-offset-4">
-                <form class="form-group" method="post">
+                <div class="col-xs-4 col-xs-offset-4">
+                    <form class="form-group" method="post">
                     <img src="user_profile_img/<?php echo $feed["img_name"]; ?>" width="60">
                     <?php echo $feed["name"]; ?><br>
                     <?php echo $feed["created"]; ?><br>
                     <textarea name="feed" class="form-control"><?php echo $feed["feed"]; ?></textarea>
-                    <input type="submit" value="更新" class="btn btn-warming btn-xs">
-                </form>
-            </div>
+                    <input type="submit" value="更新" class="btn btn-seccess" style="background-color: green;">
+                  </form>
+                </div>
+             </div>
         </div>
     </div>
     <script src="assets/js/jquery-3.1.1.js"></script>
