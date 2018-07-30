@@ -173,6 +173,9 @@ if ($feed != '') {
                 </form>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
+                        <!-- いいねしたときユーザーID取得 -->
+                        <span hidden id="signin-user"><?php echo $signin_user['id']; ?></span>
+
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="user_profile_img/<?php echo $signin_user['img_name']; ?>" width="18" class="img-circle"><?php echo $signin_user['name']; ?> <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">マイページ</a></li>
@@ -227,13 +230,14 @@ if ($feed != '') {
                         <div class="col-xs-12">
 
                             <!-- Ajaxで更新するように修正 -->
-                            <span hidden ><?= $feed["id"] ?></span>
+                            <span hidden class="feed-id"><?= $feed["id"] ?></span>
                                 <button class="btn btn-default btn-xs js-like">
                                     <i class="fa fa-thumbs-up" aria-hidden="true"></i>
                                     <span>いいね!</span>
                                 </button>
                                 <span>いいね数 : </span>
                                 <span class="like_count">100</span>
+                            <!-- ここまで -->
 
                             <span class="comment_count">コメント数 : 9</span>
                             <?php if($feed["user_id"] == $_SESSION["id"]): ?>
