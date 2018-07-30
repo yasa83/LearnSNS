@@ -119,21 +119,21 @@ if ($feed != '') {
                 $data=[];
     }
 
-        
-        $stmt = $dbh->prepare($sql);
-        $stmt->execute($data);
+    //     $data = array();
+    //     $stmt = $dbh->prepare($sql);
+    //     $stmt->execute($data);
 
 
-    // 表示用の配列を初期化
-        $feeds=array();
+    // // 表示用の配列を初期化
+    //     $feeds=array();
 
-        while(true){
-        $record = $stmt->fetch(PDO::FETCH_ASSOC);
-        if($record == false){
-            break;
-        }
-        $feeds[] =$record;
-        }
+    //     while(true){
+    //     $record = $stmt->fetch(PDO::FETCH_ASSOC);
+    //     if($record == false){
+    //         break;
+    //     }
+    //     $feeds[] =$record;
+    //     }
 
     $dbh = null;
 
@@ -225,13 +225,16 @@ if ($feed != '') {
                     </div>
                     <div class="row feed_sub">
                         <div class="col-xs-12">
-                            <form method="POST" action="" style="display: inline;">
-                                <input type="hidden" name="feed_id" >
 
-                                <input type="hidden" name="like" value="like">
-                                <button type="submit" class="btn btn-default btn-xs"><i class="fa fa-thumbs-up" aria-hidden="true"></i>いいね！</button>
-                            </form>
-                            <span class="like_count">いいね数 : 100</span>
+                            <!-- Ajaxで更新するように修正 -->
+                            <span hidden ><?= $feed["id"] ?></span>
+                                <button class="btn btn-default btn-xs js-like">
+                                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                    <span>いいね!</span>
+                                </button>
+                                <span>いいね数 : </span>
+                                <span class="like_count">100</span>
+
                             <span class="comment_count">コメント数 : 9</span>
                             <?php if($feed["user_id"] == $_SESSION["id"]): ?>
                             <a href="edit.php?feed_id=<?php echo $feed["id"]?>" class="btn btn-success btn-xs">編集</a>
