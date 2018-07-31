@@ -140,10 +140,20 @@ if ($feed != '') {
 
         }
 
+        // 何件いいねされているか確認
+        $like_sql = "SELECT COUNT(*) AS `like_cnt` FROM `likes` WHERE `feed_id` = ?";
 
+        $like_data = [$record["id"]];
 
+        $like_stmt = $dbh->prepare($like_sql);
+        $like_stmt->execute($like_data);
 
+        $like = $like_stmt->fetch(PDO::FETCH_ASSOC);
+
+        $record["like_cnt"] = $like["like_cnt"];
+        
 ?>
+
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -249,7 +259,7 @@ if ($feed != '') {
                                 </button>
                             <?php endif; ?>
                                 <span>いいね数 : </span>
-                                <span class="like_count">100</span>
+                                <span class="like_count"><?= $feed['like_cnt'] ?></span>
                             <!-- ここまで -->
 
                             <span class="comment_count">コメント数 : 9</span>
