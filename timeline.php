@@ -20,7 +20,6 @@ $stmt->execute($data);
 $signin_user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
-
 // 初期化
 $errors = array();
 
@@ -57,18 +56,9 @@ $page = min($page,$last_page);
 $start = ($page -1)*CONTENT_PER_PAGE;
 
 
-
-
-
-
-
-
 // ユーザーが投稿ボタンを押したら発動
 if(!empty($_POST)){
 $feed = $_POST['feed'];
-
-
-
 
 
 // 投稿の空チェック
@@ -119,23 +109,23 @@ if ($feed != '') {
                 $data=[];
     }
 
-        
-    //     $stmt = $dbh->prepare($sql);
-    //     $stmt->execute($data);
+
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute($data);
 
 
-    // // 表示用の配列を初期化
-    //     $feeds=array();
+    // 表示用の配列を初期化
+        $feeds=array();
 
-    //     while(true){
-    //     $record = $stmt->fetch(PDO::FETCH_ASSOC);
-    //     if($record == false){
-    //         break;
-    //     }
-    //     $feeds[] =$record;
+        while(true){
+        $record = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($record == false){
+            break;
+        }
+        $feeds[] =$record;
 
         $dbh = null;
-        // }
+        }
 
 
 
