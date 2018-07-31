@@ -9,6 +9,6 @@ require_once("dbconnect.php");
 
     $data = [$user_id, $feed_id];
     $stmt = $dbh->prepare($sql);
-    $res = $stmt->execute($data);
+    $res = $stmt->execute($data); //上手くいくとtrue,失敗するとfalseの答えを使う
 
      echo json_encode($res);

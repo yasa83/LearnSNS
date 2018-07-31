@@ -23,9 +23,10 @@ $(function() {
         })
         .done(function(data) {
             // 成功時の処理
+
             if(data == 'true'){
                 like_count++;
-                like_btn.siblimgs('.like_count').text(like_count);
+                like_btn.siblings('.like_count').text(like_count);
             }
 
         })

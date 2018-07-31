@@ -105,7 +105,7 @@ if ($feed != '') {
         $data = [$_GET['search_word']];
     }else{
         // LEFT JOINで全件取得
-        $sql = 'SELECT `f`.*, `u`.`name`, `u`.`img_name` FROM `feeds` AS `f` LEFT JOIN `users` AS `u` ON `f`.`user_id`=`u`.`id` ORDER BY `created` DESC LIMIT '.CONTENT_PER_PAGE.'OFFSET'.$start;
+        $sql = 'SELECT `f`.*, `u`.`name`, `u`.`img_name` FROM `feeds` AS `f` LEFT JOIN `users` AS `u` ON `f`.`user_id`=`u`.`id` ORDER BY `created` DESC LIMIT '.CONTENT_PER_PAGE.' OFFSET '.$start;
                 $data=[];
     }
 
@@ -122,6 +122,23 @@ if ($feed != '') {
         if($record == false){
             break;
         }
+
+
+        // // いいね済みかどうかの確認
+        // $like_flg_sql = "SELECT `id` FROM `likes` WHERE `user_id` = ? AND `feed_id` = ?";
+
+        // $like_flg_data = [$signin_user['id'], $record["id"]];
+
+        // $like_flg_stmt = $dbh->prepare($like_flg_sql);
+        // $like_flg_stmt->execute($like_flg_data);
+
+        // $is_liked = $like_flg_stmt->fetch(PDO::FETCH_ASSOC);
+
+        // // 三項演算子 条件式 ? trueだった場合 : falseだった場合
+        // $record["is_liked"] = $is_liked ? true : false;
+
+
+
         $feeds[] =$record;
 
         $dbh = null;
@@ -130,8 +147,8 @@ if ($feed != '') {
 
 
 
-
 ?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -224,10 +241,17 @@ if ($feed != '') {
 
                             <!-- Ajaxで更新するように修正 -->
                             <span hidden class="feed-id"><?= $feed["id"] ?></span>
+                                <?php if($feed['is_liked']): ?>
+                                <button class="btn btn-default btn-xs js-unlike">
+                                <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                <span>いいねを取り消す</span>
+                                </button>
+                                <?php else: ?>
                                 <button class="btn btn-default btn-xs js-like">
                                     <i class="fa fa-thumbs-up" aria-hidden="true"></i>
                                     <span>いいね!</span>
                                 </button>
+                            <?php endif; ?>
                                 <span>いいね数 : </span>
                                 <span class="like_count">100</span>
                             <!-- ここまで -->
