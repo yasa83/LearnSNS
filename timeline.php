@@ -109,7 +109,6 @@ if ($feed != '') {
                 $data=[];
     }
 
-
         $stmt = $dbh->prepare($sql);
         $stmt->execute($data);
 
@@ -118,30 +117,27 @@ if ($feed != '') {
         $feeds=array();
 
         while(true){
-        $record = $stmt->fetch(PDO::FETCH_ASSOC);
-        if($record == false){
-            break;
-        }
+            $record = $stmt->fetch(PDO::FETCH_ASSOC);
+            if($record == false){
+                break;
+            }
 
 
-        // // いいね済みかどうかの確認
-        // $like_flg_sql = "SELECT `id` FROM `likes` WHERE `user_id` = ? AND `feed_id` = ?";
+            // いいね済みかどうかの確認
+            $like_flg_sql = "SELECT * FROM `likes` WHERE `user_id` = ? AND `feed_id` = ?";
 
-        // $like_flg_data = [$signin_user['id'], $record["id"]];
+            $like_flg_data = [$signin_user['id'], $record["id"]];
 
-        // $like_flg_stmt = $dbh->prepare($like_flg_sql);
-        // $like_flg_stmt->execute($like_flg_data);
+            $like_flg_stmt = $dbh->prepare($like_flg_sql);
+            $like_flg_stmt->execute($like_flg_data);
 
-        // $is_liked = $like_flg_stmt->fetch(PDO::FETCH_ASSOC);
+            $is_liked = $like_flg_stmt->fetch(PDO::FETCH_ASSOC);
 
-        // // 三項演算子 条件式 ? trueだった場合 : falseだった場合
-        // $record["is_liked"] = $is_liked ? true : false;
+            // 三項演算子 条件式 ? trueだった場合 : falseだった場合
+            $record["is_liked"] = $is_liked ? true : false;
 
+            $feeds[] =$record;
 
-
-        $feeds[] =$record;
-
-        $dbh = null;
         }
 
 
