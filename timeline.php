@@ -119,22 +119,23 @@ if ($feed != '') {
                 $data=[];
     }
 
-        $stmt = $dbh->prepare($sql);
-        $stmt->execute($data);
+        
+    //     $stmt = $dbh->prepare($sql);
+    //     $stmt->execute($data);
 
 
-    // 表示用の配列を初期化
-        $feeds=array();
+    // // 表示用の配列を初期化
+    //     $feeds=array();
 
-        while(true){
-        $record = $stmt->fetch(PDO::FETCH_ASSOC);
-        if($record == false){
-            break;
-        }
-        $feeds[] =$record;
+    //     while(true){
+    //     $record = $stmt->fetch(PDO::FETCH_ASSOC);
+    //     if($record == false){
+    //         break;
+    //     }
+    //     $feeds[] =$record;
 
         $dbh = null;
-        }
+        // }
 
 
 
