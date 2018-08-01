@@ -117,11 +117,25 @@ if ($feed != '') {
         $feeds=array();
 
         while(true){
+
             $record = $stmt->fetch(PDO::FETCH_ASSOC);
             if($record == false){
                 break;
             }
 
+            // 何件いいねされているか確認
+            $like_sql = "SELECT COUNT(*) AS `like_cnt` FROM `likes` WHERE `feed_id` = ?";
+
+            $like_data = [$record["id"]];
+
+            $like_stmt = $dbh->prepare($like_sql);
+            $like_stmt->execute($like_data);
+
+            $like = $like_stmt->fetch(PDO::FETCH_ASSOC);
+
+            $record["like_cnt"] = $like["like_cnt"];
+
+            
 
             // いいね済みかどうかの確認
             $like_flg_sql = "SELECT * FROM `likes` WHERE `user_id` = ? AND `feed_id` = ?";
@@ -135,23 +149,20 @@ if ($feed != '') {
 
             // 三項演算子 条件式 ? trueだった場合 : falseだった場合
             $record["is_liked"] = $is_liked ? true : false;
+            // if(is_liked){
+            // $record["is_liked"] =true;
+            // }else{
+            // $record["is_likes"] =false;
+            // }
 
             $feeds[] =$record;
 
-        }
 
-        // 何件いいねされているか確認
-        $like_sql = "SELECT COUNT(*) AS `like_cnt` FROM `likes` WHERE `feed_id` = ?";
 
-        $like_data = [$record["id"]];
+            }
 
-        $like_stmt = $dbh->prepare($like_sql);
-        $like_stmt->execute($like_data);
+       
 
-        $like = $like_stmt->fetch(PDO::FETCH_ASSOC);
-
-        $record["like_cnt"] = $like["like_cnt"];
-        
 ?>
 
 
