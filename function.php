@@ -35,3 +35,19 @@
 
         return $like["like_cnt"];
     }
+
+    // いいね済みかどうかの判定する機能を関数化
+    function is_liked($dbh,$user_id,$feed_id)
+    {
+        $like_flg_sql = "SELECT * FROM `likes` WHERE `user_id` = ? AND `feed_id` = ?";
+
+        $like_flg_data = [$user_id,$feed_id];
+
+        $like_flg_stmt = $dbh->prepare($like_flg_sql);
+        $like_flg_stmt->execute($like_flg_data);
+
+        $is_liked = $like_flg_stmt->fetch(PDO::FETCH_ASSOC);
+
+        // 三項演算子 条件式 ? trueだった場合 : falseだった場合
+        return $is_liked ? true : false;
+    }
