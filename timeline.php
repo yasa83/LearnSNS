@@ -11,6 +11,7 @@ if(!isset($_SESSION['id'])){
     exit();
 }
 
+// ユーザー情報を受け取る
 $signin_user = get_user($dbh, $_SESSION['id']);
 
 // 初期化
@@ -57,11 +58,8 @@ $feed = $_POST['feed'];
 // 投稿の空チェック
 // ifemptyを使うと０もblankとして処理されてしまう
 if ($feed != '') {
-            // 投稿処理
-    $sql = 'INSERT INTO `feeds` SET `feed`=?, `user_id`=?, `created`=NOW()';
-    $data = array($feed, $signin_user['id']);
-    $stmt = $dbh->prepare($sql);
-    $stmt->execute($data);
+    // 投稿処理
+    create_feed($dbh, $feed, $signin_user['id']);
 
 // これが無いと画面更新したときに何度もデータを送ってしまう
     unset($_SESSION['register']);
