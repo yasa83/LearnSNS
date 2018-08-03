@@ -11,7 +11,7 @@ if(!isset($_SESSION['id'])){
     exit();
 }
 
-// ユーザー情報を受け取る
+// ユーザー情報を受け取る関数
 $signin_user = get_user($dbh, $_SESSION['id']);
 
 // 初期化
@@ -58,7 +58,7 @@ $feed = $_POST['feed'];
 // 投稿の空チェック
 // ifemptyを使うと０もblankとして処理されてしまう
 if ($feed != '') {
-    // 投稿処理
+    // 投稿処理の関数
     create_feed($dbh, $feed, $signin_user['id']);
 
 // これが無いと画面更新したときに何度もデータを送ってしまう
@@ -134,18 +134,8 @@ if ($feed != '') {
             // $record["is_likes"] =false;
             // }
 
-            // 何件いいねされているか確認
-            $like_sql = "SELECT COUNT(*) AS `like_cnt` FROM `likes` WHERE `feed_id` = ?";
-
-            $like_data = [$record["id"]];
-
-            $like_stmt = $dbh->prepare($like_sql);
-            $like_stmt->execute($like_data);
-
-            $like = $like_stmt->fetch(PDO::FETCH_ASSOC);
-
-            $record["like_cnt"] = $like["like_cnt"];
-
+            // 何件いいねされているか確認する関数
+            $record ["like_cnt"] = count_like($dbh,$record["id"]);
 
 
             $feeds[] =$record;
