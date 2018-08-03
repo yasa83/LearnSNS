@@ -51,3 +51,17 @@
         // 三項演算子 条件式 ? trueだった場合 : falseだった場合
         return $is_liked ? true : false;
     }
+
+    
+    // ヒットしたレコードの数を取得するSQL(COUNTは行の数を数える)
+    function get_last_page($dbh)
+    {
+        $sql_count = "SELECT COUNT(*)AS`cnt`FROM`feeds`";
+        $stmt_count = $dbh->prepare($sql_count);
+        $stmt_count->execute();
+
+        $record_cnt=$stmt_count->fetch(PDO::FETCH_ASSOC);
+
+        // 取得したページ数を1ページあたりに表示する件数で割って何ページが最後になるか取得
+        return ceil($record_cnt['cnt']/CONTENT_PER_PAGE);
+    }
