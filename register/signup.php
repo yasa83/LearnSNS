@@ -3,10 +3,16 @@
 
     if(!empty($_POST)){
         $name = $_POST['input_name'];
+        $email = $_POST['input_email'];
+        $password = $_POST['input_password'];
 
         // ユーザー名の空チェック
         if($name == ''){
             $errors['name'] = 'blank';
+        }
+        // emailの空チェック
+        if($email == ''){
+            $errors['email'] = 'blank';
         }
     }
 ?>
@@ -39,6 +45,9 @@
                 <div class="form-group">
                     <label for="email">メールアドレス</label>
                     <input type="email" name="input_email" class="form-control" id="email" placeholder="example@gmail.com">
+                    <?php if(isset($errors['email']) && $errors['email'] == 'blank'): ?>
+                    <p class="text-danger">メールアドレスを入力してください</p>
+                    <?php endif; ?>
                 </div>
 
                 <div class="form-group">
