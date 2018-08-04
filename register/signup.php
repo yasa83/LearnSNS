@@ -1,3 +1,16 @@
+<?php 
+    $errors = array();
+
+    if(!empty($_POST)){
+        $name = $_POST['input_name'];
+
+        // ユーザー名の空チェック
+        if($name == ''){
+            $errors['name'] = 'blank';
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -18,6 +31,9 @@
                 <div class="form-group">
                     <label for="name">ユーザー名</label>
                     <input type="text" name="input_name" class="form-control" id="name" placeholder="山田太郎">
+                    <?php if(isset($errors['name']) && $errors['name'] == 'blank'):?>
+                    <p class ="text-danger">ユーザー名を入力してください</p>
+                    <?php endif; ?>
                 </div>
 
                 <div class="form-group">
