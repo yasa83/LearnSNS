@@ -81,7 +81,7 @@
 
                 <div class="form-group">
                     <label for="img_name">プロフィール画像</label>
-                    <input type="file" name="input_img_name" id="img_name">
+                    <input type="file" name="input_img_name" id="img_name" accept="image/*">
                     <?php if(isset($errors['img_name']) && $errors['img_name'] == 'blank'): ?>
                     <p class="text-danger">画像を選択してください</p>
                 <?php endif; ?>
