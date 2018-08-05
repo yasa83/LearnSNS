@@ -26,7 +26,11 @@
         // 画像名を取得
         $file_name = $_FILES['input_img_name']['name'];
         if(!empty($file_name)){
-            // 拡張子のチェック
+            $file_type = substr($file_name, -3);
+            $file_type = strtolower($file_type);
+            if($file_type !='jpg' && $file_type !='png' && $file_type !='gif'){
+                $errors['img_name'] = 'type';
+            }
         }else{
             $errors['img_name'] = 'blank';
         }
@@ -84,7 +88,10 @@
                     <input type="file" name="input_img_name" id="img_name" accept="image/*">
                     <?php if(isset($errors['img_name']) && $errors['img_name'] == 'blank'): ?>
                     <p class="text-danger">画像を選択してください</p>
-                <?php endif; ?>
+                    <?php endif; ?>
+                    <?php if(isset($errors['img_name']) && $errors['img_name'] == 'type') :?>
+                    <p class="text-danger">拡張子が「jpg」「png」「gif」の画像を選択してください</p>
+                    <?php endif; ?>
                 </div>
 
                 <input type="submit" class="btn btn-default" value="確認">
