@@ -15,14 +15,24 @@
             $errors['email'] = 'blank';
         }
 
-        // パスワードの空チェック
+        // パスワードの空、長さチェック
         $count = strlen($password);
         if ($password == ''){
             $errors['password'] = 'blank';
         }elseif($count < 4 || 16 < $count){
             $errors['password'] = 'length';
         }
+
+        // 画像名を取得
+        $file_name = $_FILES['input_img_name']['name'];
+        if(!empty($file_name)){
+            // 拡張子のチェック
+        }else{
+            $errors['img_name'] = 'blank';
+        }
     }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -72,6 +82,9 @@
                 <div class="form-group">
                     <label for="img_name">プロフィール画像</label>
                     <input type="file" name="input_img_name" id="img_name">
+                    <?php if(isset($errors['img_name']) && $errors['img_name'] == 'blank'): ?>
+                    <p class="text-danger">画像を選択してください</p>
+                <?php endif; ?>
                 </div>
 
                 <input type="submit" class="btn btn-default" value="確認">
