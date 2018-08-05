@@ -35,7 +35,10 @@
         }
 
         // 画像名を取得
-        $file_name = $_FILES['input_img_name']['name'];
+        $file_name = '';
+        if(!isset($_GET['action'])){
+            $file_name = $_FILES['input_img_name']['name'];
+        }
         if(!empty($file_name)){
             $file_type = substr($file_name, -3);
             $file_type = strtolower($file_type);
