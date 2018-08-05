@@ -44,6 +44,9 @@
         $submit_file_name = $date_str.$file_name;
 
         move_uploaded_file($_FILES['input_img_name']['tmp_name'], '../user_profile_img/'.$submit_file_name);
+
+        header('Location: check.php');
+        exit();
     }
 
 
