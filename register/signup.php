@@ -2,6 +2,14 @@
     date_default_timezone_set('Asia/Manila');
     session_start();
 
+    if(isset($_GET['action']) && $_GET['action'] == 'rewite'){
+        $_POST['input_name'] = $_SESSION['register']['name'];
+        $_POST['input_email'] = $_SESSION['register']['email'];
+        $_POST['input_password'] = $_SESSION['register']['password'];
+        
+        $errors['rewrite'] = true;
+    }
+
     $errors = array();
 
     if(!empty($_POST)){
