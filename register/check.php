@@ -6,7 +6,15 @@ if(!isset($_SESSION['register'])){
     exit();
 }
 
+$name = $_SESSION['register']['name'];
+$email = $_SESSION['register']['email'];
+$password = $_SESSION['register']['password'];
+$img_name = $_SESSION['register']['img_name'];
 
+// 登録ボタンが押された時のif文
+if(!empty($_POST)){
+    echo'通過テスト';
+}
 
 
 ?>
