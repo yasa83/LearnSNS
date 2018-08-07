@@ -68,16 +68,17 @@ while(true){
         </div>
     </nav>
     <div class="container">
+        <?php foreach($users as $user): ?>
         <div class="row">
             <div class="col-xs-12">
                 <div class="thumbnail">
                     <div class="row">
                         <div class="col-xs-1">
-                            <img src="user_profile_img/" width="80">
+                            <img src="user_profile_img/<?php $user["img_name"]; ?> width="80">
                         </div>
                         <div class="col-xs-11">
-                            名前 { ユーザー名 }<br>
-                            <a href="profile.php?" style="color: #7F7F7F;">{ 年月 }からメンバー</a>
+                            名前 <?php echo $user["name"];?>><br>
+                            <a href="profile.php?" style="color: #7F7F7F;"><?php echo $user["created"]; ?>からメンバー</a>
                         </div>
                     </div>
 
@@ -89,6 +90,7 @@ while(true){
                 </div><!-- thumbnail -->
             </div><!-- class="col-xs-12" -->
         </div><!-- class="row" -->
+    <?php endforeach; ?>
     </div><!-- class="cotainer" -->
     <script src="assets/js/jquery-3.1.1.js"></script>
     <script src="assets/js/jquery-migrate-1.4.1.js"></script>
