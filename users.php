@@ -1,4 +1,26 @@
 <?php
+session_start();
+
+require('dbconnect.php');
+require('function.php');
+
+// サインインしている人の情報を取得
+$signin_user = get_user($dbh,$_SESSION["id"]);
+
+$sql = 'SELECT * FROM `users`';
+$stmt = $dbh->prepare($sql);
+$stmt->execute();
+
+$users = [];
+while(true){
+    $record = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if($record == false){
+        break;
+    }
+
+    $users[] = $record;
+}
 
 ?>
 <!DOCTYPE html>
