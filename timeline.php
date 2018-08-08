@@ -130,7 +130,7 @@ if ($feed != '') {
     <link rel="stylesheet" type="text/css" href="assets/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
-<body style="margin-top: 60px; background: #E4E6EB;">
+<body style="margin-top: 60px;">
 
 <?php include('navbar.php');?>
 
