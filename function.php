@@ -115,6 +115,25 @@
     }
 
 
+    function get_following($dbh, $user_id)
+    {
+        $sql = 'SELECT u.* FROM followers fw JOIN users ON fw.user_id = u.id WHERE fw.follower_id =?';
+
+        $data = array($user_id);
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute($data);
+
+        $following = [];
+        while (true) {
+            $record = $stmt->fetch(PDO::FETCH_ASSOC);
+            if($record == false)break;
+
+            $followings[] = $record;
+        }
+
+        return $followings;
+    }
+
 
 
 
