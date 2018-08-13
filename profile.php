@@ -68,17 +68,19 @@
                     </div>
 
                     <div id="tab2" class="tab-pane fade">
+                        <?php foreach($followings as $following): ?>
                         <div class="thumbnail">
                             <div class="row">
                                 <div class="col-xs-2">
-                                    <img src="user_profile_img/" width="80">
+                                    <img src="user_profile_img/<?= $following['img_name'] ?>" width="80">
                                 </div>
                                 <div class="col-xs-10">
-                                    名前 { ここにユーザー名 }<br>
-                                    <a href="#" style="color: #7F7F7F;">{ ここに日付 }からメンバー</a>
+                                    名前 <?= $following['name'] ?><br>
+                                    <a href="profile.php?user_id=<?= $following['id']?>" style="color: #7F7F7F;"><?= $following['created'] ?>からメンバー</a>
                                 </div>
                             </div>
                         </div>
+                    <?php endforeach; ?>
                     </div>
                 </div>
             </div>
