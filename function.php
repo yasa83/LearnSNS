@@ -95,11 +95,13 @@
 
     function get_follower($dbh,$user_id)
     {
-        $sql='SELECT u.* FROM followers fw JOIN users u ON fw.folloer_id = u.id WHERE fw.user_id = ?';
+        $sql = 'SELECT u.* FROM followers fw JOIN users u ON fw.follower_id = u.id WHERE fw.user_id = ?';
 
         $data = array($user_id);
         $stmt = $dbh->prepare($sql);
         $stmt->execute($data);
+
+
 
         $follower =[];
         while (true) {
