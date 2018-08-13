@@ -34,7 +34,7 @@
                     <?php if($is_followed): ?>
                         <a href=""><button class="btn btn-default btn-block">フォロー解除する</button></a>
                         <?php else: ?>
-                        <a href="follow.php?following_id=<?=$profile_user["id"] ?>"><button class="btn btn-default btn-block">フォローする</button></a>
+                        <a href="follow.php?following_id=<?=$profile_user["id"]; ?>"><button class="btn btn-default btn-block">フォローする</button></a>
                     <?php endif; ?>
                 <?php endif; ?>
             </div>
