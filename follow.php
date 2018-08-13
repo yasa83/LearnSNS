@@ -11,7 +11,7 @@
     if (isset($_GET["unfollow"])) {
         $sql = "DELETE FROM `followers` WHERE `user_id` =? and `follower_id` =?";
     }else{
-    $sql = "INSERT INTO `followers` (`user_id`, `follower_id`) VALUES(?,?);";
+        $sql = "INSERT INTO `followers` (`user_id`, `follower_id`) VALUES(?,?);";
     }
     $data = array($user_id, $follower_id);
     $stmt = $dbh->prepare($sql);
