@@ -28,7 +28,9 @@
             <div class="col-xs-3 text-center">
                 <img src="user_profile_img/<?=$profile_user['img_name'] ?>" class="img-thumbnail" />
                 <h2><?php echo $profile_user["name"]; ?></h2>
+                <?php if ($signin_user['id'] != $profile_user['id']):?>
                 <a href="follow.php?following_id="><button class="btn btn-default btn-block">フォローする</button></a>
+            <?php endif; ?>
             </div>
             <div class="col-xs-9">
                 <ul class="nav nav-tabs">
