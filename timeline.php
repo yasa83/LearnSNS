@@ -201,6 +201,7 @@ if ($feed != '') {
                             <a onclick="return confirm('ほんとに消すの？');" href="delete.php?feed_id=<?php echo $feed["id"] ?>" class="btn btn-danger btn-xs">削除</a>
                         <?php endif; ?>
                         </div>
+                        <?php include("comment_view.php"); ?>
                     </div>
                 </div>
             <?php endforeach; ?>
