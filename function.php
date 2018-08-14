@@ -106,8 +106,9 @@
         $follower =[];
         while (true) {
             $record = $stmt->fetch(PDO::FETCH_ASSOC);
-            if($record == false)break;
-
+            if($record == false){
+                break;
+            }
             $follower[] = $record;
         }
 
