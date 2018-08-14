@@ -88,7 +88,7 @@ if ($feed != '') {
     }else{
         // LEFT JOINで全件取得
         $sql = 'SELECT `f`.*, `u`.`name`, `u`.`img_name` FROM `feeds` AS `f` LEFT JOIN `users` AS `u` ON `f`.`user_id`=`u`.`id` ORDER BY `created` DESC LIMIT '.CONTENT_PER_PAGE.' OFFSET '.$start;
-                $data=[];
+            $data=[];
     }
 
         $stmt = $dbh->prepare($sql);
@@ -111,7 +111,8 @@ if ($feed != '') {
             // 何件いいねされているか確認する関数
             $record ["like_cnt"] = count_like($dbh,$record["id"]);
 
-
+            // 投稿したコメントを取得する関数
+            $record["comments"] = get_comment($dbh, $record["id"]);
             $feeds[] =$record;
 
             }
