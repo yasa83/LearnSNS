@@ -192,7 +192,9 @@ if ($feed != '') {
                                 <span>いいね数 : </span>
                                 <span class="like_count"><?= $feed['like_cnt'] ?></span>
                             <!-- ここまで -->
-
+                            <a href="#collapseComment<?=$feed["id"]?>" data-toggle="collapse" aria-expanded="false">
+                            <span>コメントする</span>
+                            </a>
                             <span class="comment_count">コメント数 : 9</span>
                             <?php if($feed["user_id"] == $_SESSION["id"]): ?>
                             <a href="edit.php?feed_id=<?php echo $feed["id"]?>" class="btn btn-success btn-xs">編集</a>
