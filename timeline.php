@@ -113,6 +113,8 @@ if ($feed != '') {
 
             // 投稿したコメントを取得する関数
             $record["comments"] = get_comment($dbh, $record["id"]);
+
+            $record["comment_cnt"] = count_comment($dbh,$record["id"]);
             $feeds[] =$record;
 
             }
@@ -196,7 +198,7 @@ if ($feed != '') {
                             <a href="#collapseComment<?=$feed["id"]?>" data-toggle="collapse" aria-expanded="false">
                             <span>コメントする</span>
                             </a>
-                            <span class="comment_count">コメント数 : 9</span>
+                            <span class="comment_count">コメント数 : <?=$feed["comment_cnt"]?></span>
                             <?php if($feed["user_id"] == $_SESSION["id"]): ?>
                             <a href="edit.php?feed_id=<?php echo $feed["id"]?>" class="btn btn-success btn-xs">編集</a>
                             <a onclick="return confirm('ほんとに消すの？');" href="delete.php?feed_id=<?php echo $feed["id"] ?>" class="btn btn-danger btn-xs">削除</a>
