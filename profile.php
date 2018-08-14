@@ -13,6 +13,8 @@
 
     $followers = get_follower($dbh,$profile_user['id']);
 
+    $followings = get_following($dbh,$profile_user['id']);
+
 ?>
 
 <!DOCTYPE html>
