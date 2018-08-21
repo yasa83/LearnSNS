@@ -26,6 +26,7 @@ if(!empty($_POST)){
 
 
 ?>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="utf-8">
