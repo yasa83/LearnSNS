@@ -1,5 +1,6 @@
 <?php
 require('dbconnect.php');
+session_start();
 
 $errors = array();
 
@@ -24,7 +25,20 @@ if(!empty($_POST)){
     }else{
         $errors['signin'] = 'blank';
     }
+
+    if(password_verify($password,$record['password'])){
+        $_SESSION['id'] = $record['id'];
+
+        header('Location:timeline.php');
+        exit();
+
+
+    }else{
+        $errors['signin'] = 'failed';
+    }
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
