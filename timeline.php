@@ -10,6 +10,20 @@ $stmt ->execute($data);
 
 $signin_user = $stmt->fetch(PDO::FETCH_ASSOC);
 
+$errors =array();
+
+if(!empty($_POST)){
+    $feed = $_POST['feed'];
+
+    if($feed !=''){
+
+    }else{
+        $errors['feed'] = 'blank';
+
+    }
+}
+
+
 
 ?>
 <!DOCTYPE html>
@@ -72,6 +86,9 @@ $signin_user = $stmt->fetch(PDO::FETCH_ASSOC);
                         <div class="form-group">
                             <textarea name="feed" class="form-control" rows="3" placeholder="Happy Hacking!" style="font-size: 24px;"></textarea><br>
                         </div>
+                        <?php if(isset($errors['feed']) && $errors['feed'] == 'blank'): ?>
+                            <p class="alert alert-danger">投稿データを入力してください</p>
+                        <?php endif; ?>
                         <input type="submit" value="投稿する" class="btn btn-primary">
                     </form>
                 </div>
