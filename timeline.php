@@ -13,6 +13,14 @@ $signin_user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 $errors =array();
 
+
+If(isset($_GET['page'])){
+    $page = $_GET['page'];
+}else{
+    $page = 1;
+}
+
+
 if(!empty($_POST)){
     $feed = $_POST['feed'];
 
@@ -33,7 +41,9 @@ if(!empty($_POST)){
     }
 }
 
-$sql = 'SELECT `f`.*,`u`.`name`,`u`.`img_name` FROM `feeds` AS `f` LEFT JOIN `users` AS `u` ON `f`.`user_id` = `u`.`id` ORDER BY `created` DESC';
+$sql = 'SELECT `f`.*,`u`.`name`,`u`.`img_name` FROM `feeds` AS `f` LEFT JOIN `users` AS `u` ON `f`.`user_id` = `u`.`id` ORDER BY `created` DESC LIMIT 5 OFFSET 0';
+
+$sql = 'SELECT `f`.*,`u`.`name`,`u`.`img_name` FROM `feeds` AS `f` LEFT JOIN `users` AS `u` ON `f`.`user_id` = `u`.`id` ORDER BY `created` DESC LIMIT 5 OFFSET 5';
 $data = array();
 $stmt = $dbh->prepare($sql);
 $stmt->execute($data);
@@ -153,8 +163,8 @@ while(true){
             <?php endforeach; ?>
                 <div aria-label="Page navigation">
                     <ul class="pager">
-                        <li class="previous disabled"><a href="#"><span aria-hidden="true">&larr;</span> Newer</a></li>
-                        <li class="next"><a href="#">Older <span aria-hidden="true">&rarr;</span></a></li>
+                        <li class="previous disabled"><a href="timeline.php?page=<?php echo $page-1;?>"><span aria-hidden="true">&larr;</span> Newer</a></li>
+                        <li class="next"><a href="timeline.php?=<?php echo $page+1; ?>">Older <span aria-hidden="true">&rarr;</span></a></li>
                     </ul>
                 </div>
             </div>
