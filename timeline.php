@@ -4,6 +4,7 @@ session_start();
 require('dbconnect.php');
 
 
+// ユーザー情報取得
 $sql = 'SELECT * FROM `users` WHERE `id` =?';
 $data = array($_SESSION['id']);
 $stmt = $dbh->prepare($sql);
@@ -13,14 +14,36 @@ $signin_user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 $errors =array();
 
-
-If(isset($_GET['page'])){
+// ページネーション
+if(isset($_GET['page'])){
     $page = $_GET['page'];
 }else{
     $page = 1;
 }
 
+const CONTENT_PER_PAGE = 5;
 
+// -1などの不正な値を渡された時の対策
+$page =max($page,1);
+
+// ヒットしたレコードの数を取得するSQL
+$sql_count = "SELECT COUNT(*)AS `cnt` FROM `feeds`";
+
+$stmt_count = $dbh->prepare($sql_count);
+
+$stmt_count->execute();
+
+$record_cnt = $stmt_count->fetch(PDO::FETCH_ASSOC);
+
+// 取得したページ数を1ページあたりに表示する件数で割って何ページが最後になるか取得
+$last_page = ceil($record_cnt['cnt']/COUTENT_PER_PAGE);
+
+// 最後のページより大きい値を渡されたときのページ
+$page = min($page, $last_page);
+
+$start = ($page -1)*CONTENT_PER_PAGE;
+
+// ユーザーが投稿ボタンを押したら発動
 if(!empty($_POST)){
     $feed = $_POST['feed'];
 
@@ -57,6 +80,8 @@ while(true){
     }
     $feeds[] = $record;
 }
+
+
 
 
 
