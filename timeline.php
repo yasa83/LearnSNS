@@ -24,7 +24,7 @@ if(isset($_GET['page'])){
 const CONTENT_PER_PAGE = 5;
 
 // -1などの不正な値を渡された時の対策
-$page =max($page,1);
+$page = max($page,1);
 
 // ヒットしたレコードの数を取得するSQL
 $sql_count = "SELECT COUNT(*)AS `cnt` FROM `feeds`";
@@ -66,7 +66,7 @@ if(!empty($_POST)){
 
 $sql = 'SELECT `f`.*,`u`.`name`,`u`.`img_name` FROM `feeds` AS `f` LEFT JOIN `users` AS `u` ON `f`.`user_id` = `u`.`id` ORDER BY `created` DESC LIMIT 5 OFFSET 0';
 
-$sql = 'SELECT `f`.*,`u`.`name`,`u`.`img_name` FROM `feeds` AS `f` LEFT JOIN `users` AS `u` ON `f`.`user_id` = `u`.`id` ORDER BY `created` DESC LIMIT 5 OFFSET 5';
+$sql = 'SELECT `f`.*,`u`.`name`,`u`.`img_name` FROM `feeds` AS `f` LEFT JOIN `users` AS `u` ON `f`.`user_id` = `u`.`id` ORDER BY `created` DESC LIMIT 5 OFFSET LIMIT'. CONTENT_PER_PAGE.'OFFSET'.$start;
 $data = array();
 $stmt = $dbh->prepare($sql);
 $stmt->execute($data);
