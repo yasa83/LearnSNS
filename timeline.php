@@ -36,7 +36,7 @@ $stmt_count->execute();
 $record_cnt = $stmt_count->fetch(PDO::FETCH_ASSOC);
 
 // 取得したページ数を1ページあたりに表示する件数で割って何ページが最後になるか取得
-$last_page = ceil($record_cnt['cnt']/COUTENT_PER_PAGE);
+$last_page = ceil($record_cnt['cnt']/CONTENT_PER_PAGE);
 
 // 最後のページより大きい値を渡されたときのページ
 $page = min($page, $last_page);
@@ -64,11 +64,11 @@ if(!empty($_POST)){
     }
 }
 
-$sql = 'SELECT `f`.*,`u`.`name`,`u`.`img_name` FROM `feeds` AS `f` LEFT JOIN `users` AS `u` ON `f`.`user_id` = `u`.`id` ORDER BY `created` DESC LIMIT 5 OFFSET 0';
+// $sql = 'SELECT `f`.*,`u`.`name`,`u`.`img_name` FROM `feeds` AS `f` LEFT JOIN `users` AS `u` ON `f`.`user_id` = `u`.`id` ORDER BY `created` DESC LIMIT 5 OFFSET 0';
 
-$sql = 'SELECT `f`.*, `u`.`name`, `u`.`img_name` FROM `feeds` AS `f` LEFT JOIN `users` AS `u` ON `f`.`user_id`=`u`.`id` ORDER BY `created` DESC LIMIT 5 OFFSET 5';
+// $sql = 'SELECT `f`.*, `u`.`name`, `u`.`img_name` FROM `feeds` AS `f` LEFT JOIN `users` AS `u` ON `f`.`user_id`=`u`.`id` ORDER BY `created` DESC LIMIT 5 OFFSET 5';
 
-// $sql = 'SELECT `f`.*, `u`.`name`, `u`.`img_name` FROM `feeds` AS `f` LEFT JOIN `users` AS `u` ON `f`.`user_id`=`u`.`id` ORDER BY `created` DESC LIMIT '. CONTENT_PER_PAGE .' OFFSET ' . $start;
+$sql = 'SELECT `f`.*, `u`.`name`, `u`.`img_name` FROM `feeds` AS `f` LEFT JOIN `users` AS `u` ON `f`.`user_id`=`u`.`id` ORDER BY `created` DESC LIMIT '. CONTENT_PER_PAGE .' OFFSET ' . $start;
 $data = array();
 $stmt = $dbh->prepare($sql);
 $stmt->execute($data);
@@ -82,6 +82,7 @@ while(true){
     }
     $feeds[] = $record;
 }
+
 
 
 
