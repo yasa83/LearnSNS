@@ -7,12 +7,21 @@ $(function(){
 
         $.ajax({
             // 送信先、送信するデータ
+            url:'like.php',
+            type:'POST',
+            datatype:'json',
+            data:{
+                'feed_id': feed_id,
+                'user_id': user_id,
+            }
         })
         .done(function(data){
             // 成功時の処理
+            console.log(data);
         })
         .fall(function(err){
             // 失敗時の処理
+            console.log('error');
         })
     })
 
