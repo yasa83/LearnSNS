@@ -189,7 +189,7 @@ while(true){
                     <div class="row feed_sub">
                         <div class="col-xs-12">
                             <span hidden class="feed-id"><?php echo $feed['id']?></span>
-                            <?php if($feed['is_liked']): ?>
+                            <?php if ($feed['is_liked']): ?>
                                 <button class="btn btn-default btn-xs js-unlike">
                                     <i class="fa fa-thumbs-up" aria-hidden="true"></i>
                                     <span>いいねを取り消す</span>
