@@ -92,6 +92,17 @@ while(true){
     // 三項演算子　条件式
     $record["is_liked"] = $is_liked ? true : false;
 
+    // 何件いいねされているか確認
+    // 何件いいねされているか確認
+    $like_sql = "SELECT COUNT(*) AS `like_cnt` FROM `likes` WHERE `feed_id` = ?";
+    $like_data = [$record["id"]];
+    $like_stmt = $dbh->prepare($like_sql);
+    $like_stmt->execute($like_data);
+
+    $like = $like_stmt->fetch(PDO::FETCH_ASSOC);
+    $record["like_cnt"] = $like["like_cnt"];
+
+
     $feeds[] = $record;
 }
 
@@ -201,7 +212,7 @@ while(true){
                                 </button>
                             <?php endif; ?>
                                 <span>いいね数：</span>
-                                <span class="like_count">100</span>
+                                <span class="like_count"><?php echo $feed['like_cnt']; ?></span>
                             <span class="comment_count">コメント数 : 9</span>
                             <?php if($feed['user_id'] == $_SESSION['id']): ?>
                             <a href="edit.php?feed_id=<?php echo $feed['id']; ?>" class="btn btn-success btn-xs">編集</a>
