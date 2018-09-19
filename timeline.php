@@ -22,16 +22,7 @@ const CONTENT_PER_PAGE = 5;
 $page = max($page,1);
 
 // ヒットしたレコードの数を取得するSQL
-$sql_count = "SELECT COUNT(*)AS `cnt` FROM `feeds`";
-
-$stmt_count = $dbh->prepare($sql_count);
-
-$stmt_count->execute();
-
-$record_cnt = $stmt_count->fetch(PDO::FETCH_ASSOC);
-
-// 取得したページ数を1ページあたりに表示する件数で割って何ページが最後になるか取得
-$last_page = ceil($record_cnt['cnt']/CONTENT_PER_PAGE);
+$last_page = get_last_page($dbh);
 
 // 最後のページより大きい値を渡されたときのページ
 $page = min($page, $last_page);
