@@ -73,15 +73,7 @@ while(true){
     }
 
     // いいね済みかどうかの確認
-    $like_flg_sql = "SELECT * FROM `likes` WHERE `user_id` = ? AND `feed_id` = ?";
-    $like_flg_data =[$signin_user['id'],$record["id"]];
-    $like_flg_stmt = $dbh->prepare($like_flg_sql);
-    $like_flg_stmt->execute($like_flg_data);
-
-    $is_liked = $like_flg_stmt->fetch(PDO::FETCH_ASSOC);
-
-    // 三項演算子　条件式
-    $record["is_liked"] = $is_liked ? true : false;
+    $record['is_liked'] = is_liked($dbh,$signin_user['id'], $record['id']);
 
     // 何件いいねされているか確認
     $record["like_cnt"] = count_like($dbh, $record["id"]);
