@@ -4,7 +4,6 @@ session_start();
 require('dbconnect.php');
 require('function.php');
 
-
 // ユーザー情報取得
 $signin_user = get_user($dbh, $_SESSION['id']);
 
@@ -43,13 +42,8 @@ $start = ($page -1)*CONTENT_PER_PAGE;
 if(!empty($_POST)){
     $feed = $_POST['feed'];
 
-
     if($feed !=''){
-
-        $sql = 'INSERT INTO `feeds` SET `feed` =?, `user_id`=?, `created` =NOW()';
-        $data = array($feed,$signin_user['id']);
-        $stmt = $dbh->prepare($sql);
-        $stmt ->execute($data);
+        create_feed($dbh, $feed,$signin_user['id']);
 
         header('Location: timeline.php');
         exit();
