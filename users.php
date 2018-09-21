@@ -12,18 +12,10 @@ $stmt = $dbh->prepare($sql); $stmt->execute();
 $users = []; 
 while (true) {
     $record = $stmt->fetch(PDO::FETCH_ASSOC);
-    if ($record == false){ break;
+    if ($record == false){
+     break;
 }
 
-
-
-    $users[] = $record;
-
-
-// echo '<pre>';
-// var_dump($record['id']);
-// echo '<pre>';
-// die();
 
 $feed_sql = "SELECT COUNT(*) AS `feed_cnt` FROM `feeds` WHERE
 `user_id` = ?";
@@ -33,11 +25,12 @@ $feed_stmt->execute($feed_data);
 $feed = $feed_stmt->fetch(PDO::FETCH_ASSOC);
 
 $record["feed_cnt"] = $feed["feed_cnt"];
- echo '<pre>';
-var_dump($feed["feed_cnt"]);
-echo '<pre>';
-die();
+//  echo '<pre>';
+// var_dump($feed["feed_cnt"]);
+// echo '<pre>';
+// die();
 $users["feed_cnt"] = $record["feed_cnt"];
+    $users[] = $record;
 
 }
 
