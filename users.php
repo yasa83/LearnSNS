@@ -52,7 +52,7 @@ while (true) {
                             </div>
                             <div class="col-xs-11">
                                 名前 <?php echo $user["name"];?>><br>
-                                <a href="profile.php?" style="color: #7F7F7F;"><?php echo $user["created"]; ?>からメンバー</a>
+                                <a href="profile.php?user_id=<?= $user['id']?>" style="color: #7F7F7F;"><?php echo $user["created"]; ?>からメンバー</a>
                             </div>
                         </div>
                         <div class="row feed_sub">
