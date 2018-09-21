@@ -19,18 +19,7 @@ while (true) {
     }
 
     // つぶやき数を取得する文　whileの中に入れる
-    $feed_sql = "SELECT COUNT(*) AS `feed_cnt` FROM `feeds` WHERE
-    `user_id` = ?";
-    $feed_data = [$record["id"]];
-    $feed_stmt = $dbh->prepare($feed_sql); 
-    $feed_stmt->execute($feed_data);
-    $feed = $feed_stmt->fetch(PDO::FETCH_ASSOC);
-
-    $record["feed_cnt"] = $feed["feed_cnt"];
-    //  echo '<pre>';
-    // var_dump($feed["feed_cnt"]);
-    // echo '<pre>';
-    // die();
+    $record["feed_cnt"] = count_feed($dbh, $record['id']);
 
     $users[] = $record;
 

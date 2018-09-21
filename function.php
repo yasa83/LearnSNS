@@ -56,3 +56,17 @@ function get_last_page($dbh)
     //取得したページ数を1ページあたりに表示する件数で割って何ページが最後になるか取得
     return ceil($record_cnt['cnt']/CONTENT_PER_PAGE);
 }
+
+
+    // つぶやき数を取得する文
+function count_feed($dbh, $feed_id)
+{
+    $feed_sql = "SELECT COUNT(*) AS `feed_cnt` FROM `feeds` WHERE
+    `user_id` = ?";
+    $feed_data = [$feed_id];
+    $feed_stmt = $dbh->prepare($feed_sql); 
+    $feed_stmt->execute($feed_data);
+    $feed = $feed_stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $feed["feed_cnt"];
+}
