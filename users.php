@@ -6,14 +6,44 @@ require('function.php');
 // サインインしている人の情報を取得
 $signin_user = get_user($dbh, $_SESSION['id']);
 
+// ユーザー全件取得
 $sql = 'SELECT * FROM `users`'; 
 $stmt = $dbh->prepare($sql); $stmt->execute();
 $users = []; 
 while (true) {
-$record = $stmt->fetch(PDO::FETCH_ASSOC);
-if ($record == false){ break;
+    $record = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($record == false){ break;
 }
-$users[] = $record; }
+
+
+
+    $users[] = $record;
+
+
+// echo '<pre>';
+// var_dump($record['id']);
+// echo '<pre>';
+// die();
+
+$feed_sql = "SELECT COUNT(*) AS `feed_cnt` FROM `feeds` WHERE
+`user_id` = ?";
+$feed_data = [$record["id"]];
+$feed_stmt = $dbh->prepare($feed_sql); 
+$feed_stmt->execute($feed_data);
+$feed = $feed_stmt->fetch(PDO::FETCH_ASSOC);
+
+$record["feed_cnt"] = $feed["feed_cnt"];
+ echo '<pre>';
+var_dump($feed["feed_cnt"]);
+echo '<pre>';
+die();
+$users["feed_cnt"] = $record["feed_cnt"];
+
+}
+
+
+
+
 
 ?>
 <!DOCTYPE html> 
@@ -38,7 +68,7 @@ $users[] = $record; }
             <div class="collapse navbar-collapse" id="navbar-collapse1">
                 <ul class="nav navbar-nav">
                     <li><a href="timeline.php">タイムライン</a></li>
-                    <li class="active"><a href="users.php">ユーサー一覧</a></li> 
+                    <li class="active"><a href="users.php">ユーザー一覧</a></li> 
                 </ul>
                 <form method="GET" action="" class="navbar-form navbar-left" role="search">
                     <div class="form-group">
@@ -51,7 +81,7 @@ $users[] = $record; }
                     <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="" width="18" class="img-circle">test <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">マイページ</a></li>
+                            <li><a href="#">マイページ</a></li>
                             <li><a href="signout.php">サインアウト</a></li>
                         </ul>
                     </li>
@@ -75,7 +105,7 @@ $users[] = $record; }
                     </div>
                         <div class="row feed_sub">
                             <div class="col-xs-12">
-                                <span class="comment_count">つふやき数 : { 投稿数 }</span> 
+                                <span class="comment_count">つふやき数 : ​<?php echo $user["feed_cnt"]; ?></span>
                             </div>
                         </div>
                     </div><!-- thumbnail -->

@@ -56,17 +56,3 @@ function get_last_page($dbh)
     //取得したページ数を1ページあたりに表示する件数で割って何ページが最後になるか取得
     return ceil($record_cnt['cnt']/CONTENT_PER_PAGE);
 }
-
-function get_users($dbh)
-{
-    $sql = 'SELECT * FROM `users`';
-    $stmt = $dbh->prepare($sql);
-    $stmt->execute();
-    while(true){
-        $record = $stmt->fetch(PDO::FETCH_ASSOC);
-        if($record == false){
-            break;
-        }
-        return $record;
-    }
-}
