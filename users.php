@@ -14,22 +14,21 @@ while (true) {
     $record = $stmt->fetch(PDO::FETCH_ASSOC);
     if ($record == false){
      break;
-}
+    }
 
+    $feed_sql = "SELECT COUNT(*) AS `feed_cnt` FROM `feeds` WHERE
+    `user_id` = ?";
+    $feed_data = [$record["id"]];
+    $feed_stmt = $dbh->prepare($feed_sql); 
+    $feed_stmt->execute($feed_data);
+    $feed = $feed_stmt->fetch(PDO::FETCH_ASSOC);
 
-$feed_sql = "SELECT COUNT(*) AS `feed_cnt` FROM `feeds` WHERE
-`user_id` = ?";
-$feed_data = [$record["id"]];
-$feed_stmt = $dbh->prepare($feed_sql); 
-$feed_stmt->execute($feed_data);
-$feed = $feed_stmt->fetch(PDO::FETCH_ASSOC);
-
-$record["feed_cnt"] = $feed["feed_cnt"];
-//  echo '<pre>';
-// var_dump($feed["feed_cnt"]);
-// echo '<pre>';
-// die();
-$users["feed_cnt"] = $record["feed_cnt"];
+    $record["feed_cnt"] = $feed["feed_cnt"];
+    //  echo '<pre>';
+    // var_dump($feed["feed_cnt"]);
+    // echo '<pre>';
+    // die();
+    $users["feed_cnt"] = $record["feed_cnt"];
     $users[] = $record;
 
 }
@@ -89,16 +88,16 @@ $users["feed_cnt"] = $record["feed_cnt"];
                     <div class="thumbnail">
                         <div class="row">
                             <div class="col-xs-1">
-                                <img src="user_profile_img/<?php echo $user['img_name']; ?>" width="80">
+                                <img src="user_profile_img/<?php $user["img_name"]; ?> width="80">
                             </div>
-                        <div class="col-xs-11">
-                        名前 <?php echo $user['name']; ?><br>
-                        <a href="profile.php?" style="color: #7F7F7F;"><?php echo $user['created']; ?>からメンバー</a>
+                            <div class="col-xs-11">
+                                名前 <?php echo $user["name"];?>><br>
+                                <a href="profile.php?" style="color: #7F7F7F;"><?php echo $user["created"]; ?>からメンバー</a>
+                            </div>
                         </div>
-                    </div>
                         <div class="row feed_sub">
                             <div class="col-xs-12">
-                                <span class="comment_count">つふやき数 : ​<?php echo $user["feed_cnt"]; ?></span>
+                                <span class="comment_count">つぶやき数 :<?php echo $user["feed_cnt"]; ?></span>
                             </div>
                         </div>
                     </div><!-- thumbnail -->
