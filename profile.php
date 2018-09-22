@@ -23,10 +23,9 @@ $profile_user = get_user($dbh, $_GET['user_id']);
                 <div class="col-xs-3 text-center">
                     <img src="user_profile_img/<?=$profile_user['img_name'];?>" class="img-thumbnail" />
                     <h2><?=$profile_user['name'];?></h2>
-                    <a href="follow.php?following_id=<?php echo $profile_user['id'];?>">
-                        <button class="btn btn-default
-                        btn-block">フォローする</button>
-                    </a> 
+                    <?php if($signin_user['id']!=$profile_user['id']):?>
+                    <a href="follow.php?following_id=<?php echo $profile_user['id'];?>"><button class="btn btn-default btn-block">フォローする</button></a>
+                    <?php endif; ?>
                 </div>
                 <div class="col-xs-9">
                     <ul class="nav nav-tabs">
