@@ -58,7 +58,7 @@ function get_last_page($dbh)
 }
 
 
-    // つぶやき数を取得する文
+// つぶやき数を取得する文
 function count_feed($dbh, $feed_id)
 {
     $feed_sql = "SELECT COUNT(*) AS `feed_cnt` FROM `feeds` WHERE
@@ -83,3 +83,23 @@ function is_followed($dbh,$user_id,$follower_id)
 
     return $is_followed ? true : false;
 }
+
+// フォロワーを一覧表示させるための関数
+function get_follower($dbh, $user_id)
+{
+    $sql = 'SELECT `u`.* FROM `followers` as `fw` JOIN `users` as `u` ON `fw`.`follower_id` = `u`.`id` WHERE `fw`.`user_id`=?';
+
+    $data = array($user_id);
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
+    $follower = [];
+    while(true){
+        $record = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($record == false)break;
+        $follower[] = $record;
+    }
+    return $follower;
+}
+
+

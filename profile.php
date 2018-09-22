@@ -10,6 +10,9 @@ $profile_user = get_user($dbh, $_GET['user_id']);
 // フォローされているかどうか確認するための関数
 $is_followed = is_followed($dbh,$profile_user['id'], $signin_user['id']);
 
+// フォロワーを一覧表示させるための関数
+$followers = get_follower($dbh, $profile_user['id']);
+
 ?>
 <!DOCTYPE html> <html lang="ja">
 <head>
@@ -45,16 +48,20 @@ $is_followed = is_followed($dbh,$profile_user['id'], $signin_user['id']);
                         </ul>
                         <!--タブの中身-->
                         <div class="tab-content">
-                            <div id="tab1" class="tab-pane fade in active"> <div class="thumbnail">
-                                <div class="row">
-                                    <div class="col-xs-2">
-                                        <img src="user_profile_img/<?= $profile_user['img_name'];?>" width="80">
-                                    </div>
-                                    <div class="col-xs-10">
-                                        名前 { ユーザー名 }<br>
-                                        <a href="#" style="color: #7F7F7F;">{ ここに日付 }からメンバー</a>
+                            <div id="tab1" class="tab-pane fade in active">
+                                <?php foreach($followers as $follower): ?>
+                                <div class="thumbnail">
+                                    <div class="row">
+                                        <div class="col-xs-2">
+                                            <img src="user_profile_img/<?= $follower['img_name'];?>" width="80">
+                                        </div>
+                                        <div class="col-xs-10">
+                                            名前 <?php echo $follower['name']; ?><br>
+                                            <a href="profile.php?user_id=<?php echo $follower['id']; ?>" style="color: #7F7F7F;"><?php echo $follower['created']; ?>からメンバー</a>
+                                        </div>
                                     </div>
                                 </div>
+                            <?php endforeach; ?>
                                     <div id="tab2" class="tab-pane fade">
                                         <div class="thumbnail">
                                             <div class="row">
