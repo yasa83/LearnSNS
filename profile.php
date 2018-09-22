@@ -50,18 +50,18 @@ $followers = get_follower($dbh, $profile_user['id']);
                         <div class="tab-content">
                             <div id="tab1" class="tab-pane fade in active">
                                 <?php foreach($followers as $follower): ?>
-                                <div class="thumbnail">
-                                    <div class="row">
-                                        <div class="col-xs-2">
-                                            <img src="user_profile_img/<?= $follower['img_name'];?>" width="80">
-                                        </div>
-                                        <div class="col-xs-10">
-                                            名前 <?php echo $follower['name']; ?><br>
-                                            <a href="profile.php?user_id=<?php echo $follower['id']; ?>" style="color: #7F7F7F;"><?php echo $follower['created']; ?>からメンバー</a>
+                                    <div class="thumbnail">
+                                        <div class="row">
+                                            <div class="col-xs-2">
+                                                <img src="user_profile_img/<?= $follower['img_name'];?>" width="80">
+                                            </div>
+                                            <div class="col-xs-10">
+                                                名前 <?php echo $follower['name']; ?><br>
+                                                <a href="profile.php?user_id=<?php echo $follower['id']; ?>" style="color: #7F7F7F;"><?php echo $follower['created']; ?>からメンバー</a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            <?php endforeach; ?>
+                                <?php endforeach; ?>
                                     <div id="tab2" class="tab-pane fade">
                                         <div class="thumbnail">
                                             <div class="row">
