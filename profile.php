@@ -13,6 +13,9 @@ $is_followed = is_followed($dbh,$profile_user['id'], $signin_user['id']);
 // フォロワーを一覧表示させるための関数
 $followers = get_follower($dbh, $profile_user['id']);
 
+// 「開いているページのユーザー」がフォローしているユーザーの一覧
+$followings = get_following($dbh, $profile_user['id']);
+
 ?>
 <!DOCTYPE html> <html lang="ja">
 <head>
@@ -63,17 +66,19 @@ $followers = get_follower($dbh, $profile_user['id']);
                                     </div>
                                 <?php endforeach; ?>
                                     <div id="tab2" class="tab-pane fade">
+                                        <?php foreach($followings as $following): ?>
                                         <div class="thumbnail">
                                             <div class="row">
                                                 <div class="col-xs-2">
-                                                    <img src="user_profile_img/" width="80"> 
+                                                    <img src="user_profile_img/<?php echo $following['img_name'];?>" width="80"> 
                                                 </div>
                                                 <div class="col-xs-10">
-                                                    名前 { ここにユーザー名 }<br>
-                                                    <a href="#" style="color: #7F7F7F;">{ ここに日付 }からメンバー</a>
+                                                    名前 <?php echo $following['name']; ?><br>
+                                                    <a href="profile.php?user_id=<?php $following['id']; ?>" style="color: #7F7F7F;"><?php echo $following['created']; ?>からメンバー</a>
                                                 </div> 
                                             </div>
                                         </div> 
+                                        <?php endforeach; ?>
                                     </div>
                                 </div> 
                             </div>
