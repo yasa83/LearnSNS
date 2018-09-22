@@ -70,3 +70,16 @@ function count_feed($dbh, $feed_id)
 
     return $feed["feed_cnt"];
 }
+
+// フォローされているかどうか確認するための関数
+function is_followed($dbh,$user_id,$follower_id)
+{
+    $sql = "SELECT `id` FROM `followers` WHERE `user_id` = ? AND `follower_id` = ?";
+    $data = [$user_id,$follower_id];
+    $stmt = $dbh->prepare($sql);
+    $stmt -> execute($data);
+
+    $is_followed = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $is_followed ? true : false;
+}

@@ -7,6 +7,9 @@ require('function.php');
 $signin_user = get_user($dbh, $_SESSION['id']);
 $profile_user = get_user($dbh, $_GET['user_id']);
 
+// フォローされているかどうか確認するための関数
+$is_followed = is_followed($dbh,$profile_user['id'], $signin_user['id']);
+
 ?>
 <!DOCTYPE html> <html lang="ja">
 <head>
@@ -24,7 +27,11 @@ $profile_user = get_user($dbh, $_GET['user_id']);
                     <img src="user_profile_img/<?=$profile_user['img_name'];?>" class="img-thumbnail" />
                     <h2><?=$profile_user['name'];?></h2>
                     <?php if($signin_user['id']!=$profile_user['id']):?>
-                    <a href="follow.php?following_id=<?php echo $profile_user['id'];?>"><button class="btn btn-default btn-block">フォローする</button></a>
+                        <?php if($is_followed): ?>
+                            <a href="follow.php?following_id=<?=$profile_user['id']; ?>&unfollow"><button class="btn btn-default btn-block">フォロー解除する</button></a>
+                            <?php else: ?>
+                            <a href="follow.php?following_id=<?php echo $profile_user['id'];?>"><button class="btn btn-default btn-block">フォローする</button></a>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </div>
                 <div class="col-xs-9">
